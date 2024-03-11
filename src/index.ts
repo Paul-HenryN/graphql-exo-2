@@ -1,24 +1,26 @@
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from '@apollo/server/standalone';
+import { startStandaloneServer } from "@apollo/server/standalone";
 import { resolvers } from "./resolvers.js";
 import { TrackAPI } from "./datasources/TrackAPI.js";
 import { typeDefs } from "./schema.js";
+import { GhibliAPI } from "./datasources/GhibliAPI.js";
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
-})
+  resolvers,
+});
 
-const {url} = await startStandaloneServer(server, {
-  listen: {port: 4000},
+const { url } = await startStandaloneServer(server, {
+  listen: { port: 4000 },
   context: async () => {
-    const {cache} = server
+    const { cache } = server;
     return {
       dataSources: {
-        trackAPI: new TrackAPI({cache})
-      }
-    }
-  }
-})
+        trackAPI: new TrackAPI({ cache }),
+        ghibliAPI: new GhibliAPI(),
+      },
+    };
+  },
+});
 
-console.log(`🚀  Server ready at: ${url}`)
+console.log(`🚀  Server ready at: ${url}`);

@@ -11,4 +11,17 @@ export type AuthorModel = {
   id: string;
   name: string;
   photo: string;
-}
+};
+
+export type PeopleModel = {
+  id: string;
+  name: string;
+  eye_color?: string;
+  films: string[];
+};
+
+export type FilmModel = {
+  id: string;
+  title: string;
+  people: string[];
+};
