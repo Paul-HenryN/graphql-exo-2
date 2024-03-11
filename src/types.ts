@@ -28,7 +28,7 @@ export type Author = {
 export type Film = {
   __typename?: 'Film';
   id: Scalars['ID']['output'];
-  people: Array<People>;
+  people?: Maybe<Array<Maybe<People>>>;
   title: Scalars['String']['output'];
 };
 
@@ -181,7 +181,7 @@ export type AuthorResolvers<ContextType = DataSourceContext, ParentType extends 
 
 export type FilmResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Film'] = ResolversParentTypes['Film']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  people?: Resolver<Array<ResolversTypes['People']>, ParentType, ContextType>;
+  people?: Resolver<Maybe<Array<Maybe<ResolversTypes['People']>>>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
