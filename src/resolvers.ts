@@ -1,6 +1,7 @@
 import { GraphQLError } from "graphql";
 import { getClosestColor } from "./colors.js";
 import { Resolvers } from "./types.js";
+import { url } from "inspector";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -35,7 +36,34 @@ export const resolvers: Resolvers = {
   },
   Film: {
     people: (parent, _, { dataSources }) => {
-      return;
+      const res = [];
+
+      for (const url of parent.people) {
+        const id = url.replace("https://ghibliapi.dev/people/", "");
+
+        if (!id) continue;
+
+        const people = dataSources.ghibliAPI.getPeopleById(id);
+        res.push(people);
+      }
+
+      return res;
+    },
+  },
+  People: {
+    films: (parent, _, { dataSources }) => {
+      const res = [];
+
+      for (const url of parent.films) {
+        const id = url.replace("https://ghibliapi.dev/films/", "");
+
+        if (!id) continue;
+
+        const film = dataSources.ghibliAPI.getFilmById(id);
+        res.push(film);
+      }
+
+      return res;
     },
   },
 };

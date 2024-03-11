@@ -8,7 +8,15 @@ export class GhibliAPI extends RESTDataSource {
     return this.get<FilmModel[]>("films");
   }
 
+  getFilmById(id: string) {
+    return this.get<FilmModel>(`films/${id}`);
+  }
+
   getPeople() {
     return this.get<PeopleModel[]>("people");
+  }
+
+  getPeopleById(id: string) {
+    return this.get<PeopleModel>(`people/${id}`);
   }
 }
